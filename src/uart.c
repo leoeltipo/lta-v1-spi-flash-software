@@ -69,6 +69,10 @@ void uart_parseCmd(char *buf)
 			{
 				uart_cmdReset();
 			}
+			else if (strcmp(commandWord[1].word, "info") ==0)
+			{
+				uart_cmdBoardInfo();
+			}
 		}
 		else if (strcmp(commandWord[0].word, "erase") ==0)
 		{
@@ -101,13 +105,6 @@ void uart_parseCmd(char *buf)
 				uart_cmdRead(commandWord[1].word, commandWord[2].word);
 			}
 		}
-		else if (strcmp(commandWord[0].word, "flash") == 0)
-		{
-			if (strcmp(commandWord[1].word, "info") == 0)
-			{
-				uart_cmdBoardInfo(commandWord[2].word);
-			}
-		}
 
 		break;
 
@@ -136,7 +133,7 @@ void uart_printMenu()
 	print("write qword <addr> <val>: write qword (32 bits) \'val\' at \'addr\'\r\n");
 	print("erase <addr>\t\t: erase sub-sector (4KB) containing \'addr\'\r\n");
 	print("flash reset\t\t: resets the memory\r\n");
-	print("flash info <addr>\t: reads board info from \'addr\'\r\n");
+	print("flash info\t\t: reads board info\r\n");
 }
 
 void uart_cmdReset()
@@ -145,10 +142,10 @@ void uart_cmdReset()
 	flash_resetMemory();
 }
 
-void uart_cmdBoardInfo(char *addr)
+void uart_cmdBoardInfo()
 {
-	// Convert to number.
-	uint32_t addrI = str2num(addr);
+	// Default address.
+	uint32_t addrI = FLASH_BOARD_INFO_ADDR;
 
 	flash_readBoardInfo(addrI, &flash_info);
 	flash_printBoardInfo(&flash_info);

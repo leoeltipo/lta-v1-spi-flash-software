@@ -113,6 +113,7 @@ typedef struct {
 	flash_date_t soft_date;
 	flash_id_t id;
 	flash_ip_t ip;
+	u32 addr;
 } flash_version_t;
 /*
  * Function prototypes.

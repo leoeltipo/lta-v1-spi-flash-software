@@ -37,7 +37,7 @@ void uart_parseCmd(char *buf);
 void uart_printMenu();
 
 void uart_cmdReset();
-void uart_cmdBoardInfo(char *addr);
+void uart_cmdBoardInfo();
 void uart_cmdRead(char *addr, char *nBytes);
 void uart_cmdReadByte(char *addr);
 void uart_cmdReadWord(char *addr);

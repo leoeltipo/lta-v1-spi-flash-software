@@ -630,6 +630,9 @@ int flash_readBoardInfo(u32 Addr, flash_version_t *info)
 				(info->ip.val 		& 0xFF));
 	strcpy(info->ip.str, str);
 
+	// Flash info address on flash.
+	info->addr = Addr;
+
 	status = flash_4byteModeDisable();
 	if (status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -642,12 +645,13 @@ int flash_printBoardInfo(flash_version_t *info)
 {
 	print("Board Information:\r\n");
 
+	xil_printf("--> Base Address:\t0x%08x:\r\n", info->addr);
 	xil_printf("--> Firmware version:\t%s\r\n", info->firm_version.str);
 	xil_printf("--> Firmware date:\t%s\r\n", info->firm_date.str);
 	xil_printf("--> Software version:\t%s\r\n", info->soft_version.str);
 	xil_printf("--> Software date:\t%s\r\n", info->soft_date.str);
-	xil_printf("--> Unique ID:\t0x%08x\r\n", info->id.val);
-	xil_printf("--> Board IP:\t%s\r\n", info->ip.str);
+	xil_printf("--> Unique ID:\t\t0x%08x\r\n", info->id.val);
+	xil_printf("--> Board IP:\t\t%s\r\n", info->ip.str);
 
 	return XST_SUCCESS;
 }

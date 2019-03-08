@@ -609,7 +609,6 @@ int flash_readBoardInfo(u32 Addr, flash_version_t *info)
 				tmp2);
 	strcpy(info->firm_hash.str, str);
 
-
 	// Software version.
 	info->soft_version.minor = ReadBuffer[idx++];
 	info->soft_version.major = ReadBuffer[idx++];
